@@ -60,3 +60,44 @@ M	1000
 
 1 <= num <= 3999
 '''
+
+def intToRoman(num):
+    matchTabale = {1000:'M',
+                   900:'CM',
+                   500:'D',
+                   400:'CD',
+                   100:'C',
+                   90:'XC',
+                   50:'L',
+                   40:'XL',
+                   10:'X',
+                   9:'IX',
+                   5:'V',
+                   4:'IV',
+                   1:'I'}
+    #初始化输出结果字符串
+    result = ''
+    #遍历数字
+    for key in matchTabale:
+        #当num除key取整不为0时
+        if num // key != 0:
+            #计算该位数的罗马表示法
+            count = num // key
+            result += matchTabale[key] * count
+            #对当前key取余，继续计算
+            num %= key
+
+    return result
+
+'''下方展示一版题解区更为简洁也更“朴实”的代码'''
+
+R = (
+    ("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"),  # 个位
+    ("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"),  # 十位
+    ("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"),  # 百位
+    ("", "M", "MM", "MMM"),  # 千位
+)
+
+class Solution:
+    def intToRoman(self, num: int) -> str:
+        return R[3][num // 1000] + R[2][num // 100 % 10] + R[1][num // 10 % 10] + R[0][num % 10]
