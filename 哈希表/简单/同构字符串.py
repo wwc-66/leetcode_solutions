@@ -28,3 +28,29 @@
 t.length == s.length
 s 和 t 由任意有效的 ASCII 字符组成
 '''
+
+
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+        else:
+            s_1st = {}
+            l_s = []
+            t_1st = {}
+            l_t = []
+            for i, sc in enumerate(s):
+                if sc not in s_1st:
+                    s_1st[sc] = i
+                    l_s.append(i)
+                else:
+                    l_s.append(s_1st[sc])
+
+            for j, tc in enumerate(t):
+                if tc not in t_1st:
+                    t_1st[tc] = j
+                    l_t.append(j)
+                else:
+                    l_t.append(t_1st[tc])
+
+            return l_s == l_t
